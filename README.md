@@ -1,16 +1,37 @@
-# React + Vite
+# Trabajo Final Integrador – Programación Visual | Grupo 19
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 Descripción
 
-Currently, two official plugins are available:
+Este proyecto consiste en el desarrollo de una aplicación web denominada **Panel de Control de Clientes**, realizada como Trabajo Práctico Integrador de la materia **Programación Visual**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+La aplicación permitirá la autenticación de administradores, la gestión y visualización de clientes mediante el consumo de una API externa, la navegación entre distintas vistas utilizando **React Router DOM**, el manejo de estado global con **Context API** y la persistencia de sesión mediante **LocalStorage**.
 
-## React Compiler
+## 🚀 Tecnologías Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React
+* Vite
+* JavaScript (ES6+)
+* React Router DOM
+* Context API
+* LocalStorage
+* FakeStoreAPI
+* Framework de interfaz de usuario (a definir)
 
-## Expanding the ESLint configuration
+## 👥 Integrantes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Alejandro Imanol Cruz**
+
+  * GitHub: @alejandro1611
+
+* **Alfredo Ezequiel Gonzalez Lopez**
+
+  * GitHub: @Ezequiel12354s
+
+* **Rita Elena Anaid Ontiveros**
+
+  * GitHub: @Rita-ontiveros247
+
+* **Facundo Joaquin Farfan**
+
+  * GitHub: @FacuFarfan
+
