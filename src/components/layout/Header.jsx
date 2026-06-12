@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import { useAdmin } from "../../context/AdminContext";
+import { useAdmin } from "../../hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
