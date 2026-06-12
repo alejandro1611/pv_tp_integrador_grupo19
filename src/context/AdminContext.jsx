@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
-const AdminContext = createContext();
+export const AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
   const [admin, setAdmin] = useState(() => {
@@ -30,5 +30,3 @@ export const AdminProvider = ({ children }) => {
     </AdminContext.Provider>
   );
 };
-
-export const useAdmin = () => useContext(AdminContext);
