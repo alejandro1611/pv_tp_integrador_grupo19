@@ -23,7 +23,7 @@ La aplicación permitirá la autenticación de administradores, la gestión y vi
 
   * GitHub: @alejandro1611
 
-* **Alfredo Ezequiel Gonzalez Lopez**
+* **Alfredo Ezequiel González López**
 
   * GitHub: @Ezequiel12354s
 
