@@ -12,15 +12,12 @@ export const getPorId = async (id) => {
   return data;
 };
 
-    const deleteCliente = async() => {
-        const {data} = await axios.delete(`${API_URL}/${id}`);
-        return data;
-    };
+export const deleteCliente = async (id) => {
+  const { data } = await axios.delete(`${API_URL}/${id}`);
+  return data;
+};
 
-    return {
-        getClientes,
-        getPorId,
-        deleteCliente
-    };
-
-})
+export const crearCliente = async (nuevoCliente) => {
+  const { data } = await axios.post(API_URL, nuevoCliente);
+  return data;
+};
