@@ -15,7 +15,7 @@ La aplicación permitirá la autenticación de administradores, la gestión y vi
 * Context API
 * LocalStorage
 * FakeStoreAPI
-* Framework de interfaz de usuario (a definir)
+* Framework de interfaz de usuario (Material UI)
 
 ## 👥 Integrantes
 
