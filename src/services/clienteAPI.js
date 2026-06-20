@@ -16,6 +16,12 @@ const Clientes= (() => {
     const deleteCliente = async() => {
         const {data} = await axios.delete(`${API_URL}/${id}`);
         return data;
-    }
+    };
+
+    return {
+        getClientes,
+        getPorId,
+        deleteCliente
+    };
 
 })
