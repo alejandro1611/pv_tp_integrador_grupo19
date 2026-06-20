@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { crearCliente } from "../../services/clientesService";
+import { crearCliente } from "../../services/clienteAPI";
 
 const FormularioAlta = () => {
   const [form, setForm] = useState({
