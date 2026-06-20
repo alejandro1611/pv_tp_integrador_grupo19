@@ -21,6 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { getClientes } from "../services/clienteAPI";
+import FormularioAlta from "../components/common/FormularioAlta";
 
 const ListaClientes = () => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ const ListaClientes = () => {
           </Button>
         )}
       </Box>
-
+      <FormularioAlta />
       <TextField
         fullWidth
         variant="outlined"
