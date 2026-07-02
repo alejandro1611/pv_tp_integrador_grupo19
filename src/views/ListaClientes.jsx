@@ -35,7 +35,8 @@ const ListaClientes = () => {
     setError(null);
     try {
       const data = await getClientes();
-      setClientes(data);
+      const agregados = JSON.parse(localStorage.getItem("agregados") || "[]");
+      setClientes([...data, ...agregados]);
     } catch (err) {
       console.error(err);
       setError("Error al conectar con el servidor. No se pudieron cargar los clientes.");
@@ -60,15 +61,17 @@ const ListaClientes = () => {
     return `${last}, ${first}`;
   };
 
-  const filteredClientes = clientes.filter((cliente) => {
-    const term = searchTerm.toLowerCase().trim();
-    if (!term) return true;
+  const eliminados = JSON.parse(localStorage.getItem("eliminados") || "[]");
 
-    const lastname = (cliente.name?.lastname || "").toLowerCase();
-    const city = (cliente.address?.city || "").toLowerCase();
-
-    return lastname.includes(term) || city.includes(term);
-  });
+  const filteredClientes = clientes
+    .filter((cliente) => !eliminados.includes(cliente.id))
+    .filter((cliente) => {
+      const term = searchTerm.toLowerCase().trim();
+      if (!term) return true;
+      const lastname = (cliente.name?.lastname || "").toLowerCase();
+      const city = (cliente.address?.city || "").toLowerCase();
+      return lastname.includes(term) || city.includes(term);
+    });
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -92,7 +95,11 @@ const ListaClientes = () => {
           </Button>
         )}
       </Box>
-      <FormularioAlta />
+
+      <FormularioAlta onClienteAgregado={(nuevoCliente) => {
+        setClientes((prev) => [...prev, nuevoCliente]);
+      }} />
+
       <TextField
         fullWidth
         variant="outlined"

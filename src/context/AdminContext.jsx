@@ -21,6 +21,8 @@ export const AdminProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("eliminados");
+    localStorage.removeItem("agregados");
     setAdmin(null);
   };
 
