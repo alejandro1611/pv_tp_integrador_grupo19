@@ -12,7 +12,7 @@ import {
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { crearCliente } from "../../services/clienteAPI";
 
-const FormularioAlta = () => {
+const FormularioAlta = ({ onClienteAgregado }) => {
   const [form, setForm] = useState({
     nombre: "",
     apellido: "",
@@ -39,23 +39,36 @@ const FormularioAlta = () => {
       return;
     }
 
-   setLoading(true);
-try {
-  const data = await crearCliente({
-    email: form.email,
-    username: form.username,
-    password: form.password,
-    name: { firstname: form.nombre, lastname: form.apellido },
-    address: {
-      city: form.ciudad,
-      street: form.calle,
-      number: parseInt(form.numero) || 0,
-      zipcode: form.zipcode,
-    },
-    phone: form.telefono,
-  });
+    setLoading(true);
+    try {
+      const data = await crearCliente({
+        email: form.email,
+        username: form.username,
+        password: form.password,
+        name: { firstname: form.nombre, lastname: form.apellido },
+        address: {
+          city: form.ciudad,
+          street: form.calle,
+          number: parseInt(form.numero) || 0,
+          zipcode: form.zipcode,
+        },
+        phone: form.telefono,
+      });
 
-  setSnackbar({ open: true, mensaje: `Cliente creado correctamente. ID asignado: ${data.id}`, severity: "success" });
+      const nuevoCliente = {
+        id: Date.now(),
+        name: { firstname: form.nombre, lastname: form.apellido },
+        email: form.email,
+        phone: form.telefono,
+        address: { city: form.ciudad },
+      };
+
+      const agregados = JSON.parse(localStorage.getItem("agregados") || "[]");
+      localStorage.setItem("agregados", JSON.stringify([...agregados, nuevoCliente]));
+
+      onClienteAgregado(nuevoCliente);
+
+      setSnackbar({ open: true, mensaje: `Cliente creado correctamente. ID asignado: ${data.id}`, severity: "success" });
 
       setForm({
         nombre: "", apellido: "", email: "", telefono: "",

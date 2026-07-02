@@ -33,29 +33,55 @@ const DetalleCliente = () => {
   const [snackbar, setSnackbar] = useState({ open: false, mensaje: "", severity: "success" });
 
   useEffect(() => {
-    const cargarCliente = async () => {
-      try {
+  const cargarCliente = async () => {
+    try {
+      // Verificamos si el ID es un cliente local (Date.now() genera IDs muy grandes)
+      const agregados = JSON.parse(localStorage.getItem("agregados") || "[]");
+      const clienteLocal = agregados.find((c) => c.id === parseInt(id));
+
+      if (clienteLocal) {
+        // Si es local usamos los datos del localStorage
+        setCliente({
+          ...clienteLocal,
+          username: "",
+          password: "",
+          phone: clienteLocal.phone || "",
+          address: {
+            street: "",
+            number: "",
+            zipcode: "",
+            city: clienteLocal.address?.city || "",
+          },
+        });
+      } else {
+        // Si es de la API hacemos el fetch normal
         const data = await getPorId(id);
         setCliente(data);
-      } catch (error) {
-        setError("No se pudo cargar la información del cliente.");
-      } finally {
-        setLoading(false);
       }
-    };
-    cargarCliente();
-  }, [id]);
-
-  const handleEliminar = async () => {
-    setDialogOpen(false);
-    try {
-      await deleteCliente(id);
-      setSnackbar({ open: true, mensaje: "Cliente eliminado correctamente.", severity: "success" });
-      setTimeout(() => navigate("/clientes"), 2000);
     } catch (error) {
-      setSnackbar({ open: true, mensaje: "Error al eliminar el cliente.", severity: "error" });
+      setError("No se pudo cargar la información del cliente.");
+    } finally {
+      setLoading(false);
     }
   };
+  cargarCliente();
+}, [id]);
+
+  const handleEliminar = async () => {
+  setDialogOpen(false);
+  try {
+    await deleteCliente(id);
+    
+    // Guardamos el ID eliminado en localStorage
+    const eliminados = JSON.parse(localStorage.getItem("eliminados") || "[]");
+    localStorage.setItem("eliminados", JSON.stringify([...eliminados, parseInt(id)]));
+
+    setSnackbar({ open: true, mensaje: "Cliente eliminado correctamente.", severity: "success" });
+    setTimeout(() => navigate("/clientes"), 2000);
+  } catch (error) {
+    setSnackbar({ open: true, mensaje: "Error al eliminar el cliente.", severity: "error" });
+  }
+};
 
   if (loading) {
     return (
