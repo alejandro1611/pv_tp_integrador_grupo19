@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "../hooks/useAdmin";
+import autorizacionesService from "../services/autorizacionesService";
 import {
   Box,
   Button,
@@ -12,23 +13,37 @@ import {
   TextField,
   Typography,
   Paper,
+  CircularProgress,
+  Alert
 } from "@mui/material";
 
 const Login = () => {
   const { login } = useAdmin();
   const navigate = useNavigate();
 
-  const [nombre, setNombre] = useState("");
-  const [sector, setSector] = useState("");
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleIngresar = () => {
-    if (!nombre.trim() || !sector) {
-      setError(true);
+  const handleIngresar = async () => {
+    if (!user.trim() || !password.trim()) {
+      setError("Todos los campos son obligatorios.");
       return;
     }
-    login(nombre.trim(), sector);
-    navigate("/");
+    
+    setLoading(true);
+    setError("");
+
+    try {
+      const datos = await autorizacionesService.login(user, password);
+      login(datos);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,43 +57,42 @@ const Login = () => {
         }}
       >
         <Paper elevation={3} sx={{ p: 4, width: "100%" }}>
-          <Typography variant="h5" fontWeight={600} mb={3} textAlign="center">
+          <Typography variant="h5" fontWeight={600} mb={3} align="center">
             Iniciar Sesión
           </Typography>
 
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <TextField
-            label="Nombre del Administrador"
+            label="Usuario"
             variant="outlined"
             fullWidth
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            error={error && !nombre.trim()}
-            helperText={error && !nombre.trim() ? "Campo obligatorio" : ""}
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
             sx={{ mb: 2 }}
           />
 
-          <FormControl fullWidth error={error && !sector} sx={{ mb: 3 }}>
-            <InputLabel>Sector</InputLabel>
-            <Select
-              value={sector}
-              label="Sector"
-              onChange={(e) => setSector(e.target.value)}
-            >
-              <MenuItem value="Soporte">Soporte</MenuItem>
-              <MenuItem value="Gerencia">Gerencia</MenuItem>
-            </Select>
-            {error && !sector && (
-              <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.5 }}>
-                Campo obligatorio
-              </Typography>
-            )}
-          </FormControl>
+          <TextField
+            label="Contraseña"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ mb: 3 }}
+          />
 
           <Button
             variant="contained"
             fullWidth
             size="large"
             onClick={handleIngresar}
+            disabled={loading}
+            startIcon={loading ? <CircularProgress size={18} color="inherit" /> : null}
           >
             Ingresar
           </Button>

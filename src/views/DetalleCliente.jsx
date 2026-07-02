@@ -122,7 +122,7 @@ const DetalleCliente = () => {
         <Typography><strong>Contraseña:</strong> {password}</Typography>
       </Paper>
 
-      {admin?.sector === "Gerencia" && (
+      {admin?.rol === "Gerencia" && (
         <Button
           variant="contained"
           color="error"
