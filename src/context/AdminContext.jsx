@@ -16,8 +16,8 @@ export const AdminProvider = ({ children }) => {
     }
   }, [admin]);
 
-  const login = (nombre, sector) => {
-    setAdmin({ nombre, sector });
+  const login = (datosAdmin) => {
+    setAdmin(datosAdmin);
   };
 
   const logout = () => {

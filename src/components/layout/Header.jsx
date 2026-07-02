@@ -21,7 +21,7 @@ const Header = () => {
         {admin && (
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Typography variant="body2">
-              {admin.nombre} — {admin.sector}
+              {admin.nombre} — {admin.rol}
             </Typography>
             <Button color="inherit" variant="outlined" onClick={handleLogout}>
               Cerrar Sesión
